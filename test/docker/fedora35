@@ -1,14 +1,7 @@
-FROM centos:8
-
-# Fix missing repo metadata
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
+FROM fedora:35
 
 RUN dnf update -y
-RUN dnf install python3 git gcc gcc-c++ make gnutls-devel libuuid-devel glibc-langpack-en -y
-RUN dnf install epel-release -y
-RUN dnf install which cmake libfaketime -y
-RUN gcc --version; cmake --version
+RUN dnf install python3 git gcc gcc-c++ cmake make gnutls-devel libuuid-devel libfaketime glibc-langpack-en -y
 
 # Setup language environment
 ENV LC_ALL en_US.UTF-8
